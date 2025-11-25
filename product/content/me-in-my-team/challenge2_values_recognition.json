@@ -1,0 +1,267 @@
+{
+  "challengeId": "challenge2_values_recognition",
+  "title": "Challenge 2 · Values Recognition",
+  "summary": "Learn to decode what drives your teammates. Pick two people and identify their core values—you'll see patterns you've never noticed before.",
+  "teammateSlots": [
+    {
+      "id": "person_a",
+      "label": "Person A",
+      "helperText": "First teammate you want to understand or support."
+    },
+    {
+      "id": "person_b",
+      "label": "Person B",
+      "helperText": "Second teammate for contrast."
+    }
+  ],
+  "checklistPrompt": "Tick every behaviour that you have observed for each teammate. Use the watchouts sparingly—they indicate when a value family is under stress.",
+  "valueFamilies": [
+    {
+      "id": "sva_artha",
+      "label": "Sva-Artha",
+      "description": "Movement, impact, achievement, autonomy, power and ambition.",
+      "values": [
+        {
+          "id": "achievement",
+          "label": "Achievement",
+          "signals": [
+            "Sets clear, challenging goals and tracks progress.",
+            "Regularly seeks feedback to improve performance.",
+            "Celebrates success milestones and personal wins."
+          ],
+          "watchouts": [
+            "Pursues success at all costs."
+          ]
+        },
+        {
+          "id": "autonomy",
+          "label": "Autonomy",
+          "signals": [
+            "Takes initiative and makes decisions without waiting for approval.",
+            "Encourages team members to act independently.",
+            "Manages time and priorities proactively."
+          ],
+          "watchouts": [
+            "Rejects feedback or collaboration, insisting on solo control."
+          ]
+        },
+        {
+          "id": "power",
+          "label": "Power",
+          "signals": [
+            "Influences stakeholders to align with strategic vision.",
+            "Makes bold decisions even under uncertainty.",
+            "Sets direction confidently and motivates others."
+          ],
+          "watchouts": [
+            "Uses authority to intimidate or dominate rather than empower."
+          ]
+        },
+        {
+          "id": "ambition",
+          "label": "Ambition",
+          "signals": [
+            "Pursues stretch targets beyond current capabilities.",
+            "Engages in continuous learning and self-development.",
+            "Inspires others with passionate vision for the future."
+          ],
+          "watchouts": [
+            "Sacrifices team morale for personal advancement."
+          ]
+        }
+      ],
+      "coachInterpretation": "High selections in Sva-Artha indicate a teammate who thrives on autonomy, pace and visible movement. They respond well to clarity, stretch goals and equanimity (Upeksha) when challenged."
+    },
+    {
+      "id": "sva_raksha",
+      "label": "Sva-Raksha",
+      "description": "Discipline, compliance, reliability and stability—protecting what works.",
+      "values": [
+        {
+          "id": "discipline",
+          "label": "Discipline",
+          "signals": [
+            "Sticks to routines and commitments.",
+            "Demonstrates self-control in high-pressure moments.",
+            "Prioritizes important tasks over urgent distractions."
+          ],
+          "watchouts": [
+            "Becomes rigid and inflexible, stifling creativity and spontaneity."
+          ]
+        },
+        {
+          "id": "compliance",
+          "label": "Compliance",
+          "signals": [
+            "Adheres to policies and regulatory standards.",
+            "Gently reminds the team of rules when overlooked.",
+            "Reports non-compliance respectfully to maintain standards."
+          ],
+          "watchouts": [
+            "Overly conforming, ignores innovation."
+          ]
+        },
+        {
+          "id": "reliability",
+          "label": "Reliability",
+          "signals": [
+            "Delivers on commitments consistently and on time.",
+            "Keeps stakeholders informed about status updates.",
+            "Follows through on promises made to colleagues."
+          ],
+          "watchouts": [
+            "Micromanages or becomes controlling to ensure every detail aligns."
+          ]
+        },
+        {
+          "id": "stability",
+          "label": "Stability",
+          "signals": [
+            "Remains calm during organizational change.",
+            "Promotes predictable processes in teams.",
+            "Provides steady guidance in uncertain times."
+          ],
+          "watchouts": [
+            "Resists necessary change, becoming stuck in old, unproductive patterns."
+          ]
+        }
+      ],
+      "coachInterpretation": "When Sva-Raksha dominates, the teammate is protecting order. Meet them with Karuna (compassion)—respect what they safeguard before inviting experimentation."
+    },
+    {
+      "id": "sva_prerana",
+      "label": "Sva-Prerana",
+      "description": "Integrity, accountability, fulfillment and competence—inner fire that wants to uplift meaningfully.",
+      "values": [
+        {
+          "id": "integrity",
+          "label": "Integrity",
+          "signals": [
+            "Makes transparent decisions aligned with core values.",
+            "Admits mistakes and takes responsibility publicly.",
+            "Upholds ethical standards, even when it's difficult."
+          ],
+          "watchouts": [
+            "Rigidly moralizes, which alienates others."
+          ]
+        },
+        {
+          "id": "accountability",
+          "label": "Accountability",
+          "signals": [
+            "Sets clear deadlines and owns performance metrics.",
+            "Reviews outcomes and takes corrective actions.",
+            "Holds oneself and others responsible for results."
+          ],
+          "watchouts": [
+            "Becomes self-blaming or excessively harsh on mistakes, creating guilt culture."
+          ]
+        },
+        {
+          "id": "fulfillment",
+          "label": "Fulfillment",
+          "signals": [
+            "Chooses work aligned with personal meaning.",
+            "Brings in fun and excitement at work.",
+            "Coaches others toward meaningful milestones."
+          ],
+          "watchouts": [
+            "Over-focus on personal satisfaction leads to avoidance of discomfort or growth areas."
+          ]
+        },
+        {
+          "id": "competence",
+          "label": "Competence",
+          "signals": [
+            "Shows strong subject-matter knowledge in discussions.",
+            "Quickly solves problems using expertise.",
+            "Shares knowledge to uplift team capability."
+          ],
+          "watchouts": [
+            "Looks down on others who may not be as competent."
+          ]
+        }
+      ],
+      "coachInterpretation": "If Sva-Prerana wins, the teammate seeks meaning plus mastery. Lead with Maitri (loving-kindness)—offer respect, curiosity and co-design."
+    },
+    {
+      "id": "aatma_siddhi",
+      "label": "Aatma-Siddhi",
+      "description": "Compassion, oneness, detachment and the greater good—purpose beyond ego.",
+      "values": [
+        {
+          "id": "compassion",
+          "label": "Compassion",
+          "signals": [
+            "Actively listens and acknowledges emotional cues.",
+            "Offers help or flexibility when someone is struggling.",
+            "Checks in on colleagues' wellbeing."
+          ],
+          "watchouts": [
+            "Avoids the necessary challenging conversations."
+          ]
+        },
+        {
+          "id": "oneness",
+          "label": "Oneness",
+          "signals": [
+            "Frames decisions around collective impact.",
+            "Encourages cross-functional collaboration.",
+            "Emphasizes shared vision and unity."
+          ],
+          "watchouts": [
+            "Seeks consensus at all costs, possibly suppressing dissent."
+          ]
+        },
+        {
+          "id": "detachment",
+          "label": "Detachment",
+          "signals": [
+            "Considers multiple perspectives before reacting.",
+            "Maintains emotional balance in stressful situations.",
+            "Focuses on long-term objectives rather than immediate outcomes."
+          ],
+          "watchouts": [
+            "Becomes emotionally aloof and is seen as uncaring."
+          ]
+        },
+        {
+          "id": "greater_good",
+          "label": "Greater Good",
+          "signals": [
+            "Prioritizes initiatives benefiting the whole organization or community.",
+            "Advocates for ethical and sustainable practices.",
+            "Mentors others to develop a broader positive impact."
+          ],
+          "watchouts": [
+            "Becomes overly idealistic and loses focus on key goals."
+          ]
+        }
+      ],
+      "coachInterpretation": "Dominant Aatma-Siddhi signals quiet, purpose-driven strength. Respond with Mudita (joy in another’s goodness)—invite them to influence without overpowering them."
+    }
+  ],
+  "scoringModel": {
+    "method": "category_tally",
+    "instructions": [
+      "Count the number of observed behaviours ticked within each value family for Person A and Person B.",
+      "The family with the highest tally becomes the teammate's primary quadrant; ties can be displayed as dual orientations.",
+      "Watchouts can reduce confidence—if only stress behaviours are selected, flag it for a qualitative follow-up."
+    ],
+    "tieBreaker": "Show both families and ask the participant which one feels more accurate."
+  },
+  "reflectionPrompts": [
+    "Which value family felt surprisingly strong for each teammate?",
+    "Where might you need more evidence or a conversation before labelling someone?"
+  ],
+  "guidance": "As you place tick marks against behaviours Person A and Person B demonstrate, you will be able to see which category of values they demonstrate more. If you need to have a confirmatory call with them, feel free to have a conversation.",
+  "conceptPanel": {
+    "asset": "frameworks/values_recognition.png",
+    "caption": "Values Recognition Grid",
+    "callout": "Highlight the quadrant that aligns with the highest tally for each teammate."
+  },
+  "cta": {
+    "label": "Unlock Challenge 3 · Values Response Framework",
+    "requiresCompletedScore": true
+  }
+}

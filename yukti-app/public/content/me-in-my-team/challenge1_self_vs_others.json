@@ -1,0 +1,168 @@
+{
+  "challengeId": "challenge1_self_vs_others",
+  "title": "Challenge 1 · Self vs. Others Reflection Tool",
+  "summary": "Help participants notice whether they naturally lead from a self-first or others-first orientation before the AI Coach mirrors it back.",
+  "instructions": [
+    "Rate yourself on each statement from 1 (Strongly Disagree) to 5 (Strongly Agree).",
+    "Each pair of prompts contrasts a Self-in lens with an Others-in lens. Encourage the participant to choose instinctively.",
+    "After rating both prompts in a pair, highlight which side received the higher score. That selection counts toward the final orientation score.",
+    "Once all five sections are complete, total the number of higher scores across the Self-in prompts (questions 1, 3, 5, 7, 9) and the Others-in prompts (questions 2, 4, 6, 8, 10)."
+  ],
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "labels": {
+      "1": "Strongly Disagree",
+      "2": "Disagree",
+      "3": "Neutral",
+      "4": "Agree",
+      "5": "Strongly Agree"
+    },
+    "displayHint": "Use a Likert slider or radio group so the participant can see all five anchors."
+  },
+  "sections": [
+    {
+      "id": "power_and_purpose",
+      "title": "Section 1 · Power and Purpose",
+      "prompts": [
+        {
+          "id": "self_platform",
+          "index": 1,
+          "orientation": "self_in",
+          "statement": "I see leadership as a platform to make things happen using my judgment and ideas."
+        },
+        {
+          "id": "others_elevate",
+          "index": 2,
+          "orientation": "others_in",
+          "statement": "I feel responsible for using my role to elevate others and serve the larger system."
+        }
+      ]
+    },
+    {
+      "id": "focus_of_attention",
+      "title": "Section 2 · Focus of Attention",
+      "prompts": [
+        {
+          "id": "self_align",
+          "index": 3,
+          "orientation": "self_in",
+          "statement": "I often focus on aligning others to my vision or way of working."
+        },
+        {
+          "id": "others_value",
+          "index": 4,
+          "orientation": "others_in",
+          "statement": "I invest time in understanding what others value and care about."
+        }
+      ]
+    },
+    {
+      "id": "flexibility_and_adaptation",
+      "title": "Section 3 · Flexibility and Adaptation",
+      "prompts": [
+        {
+          "id": "self_expect_adapt",
+          "index": 5,
+          "orientation": "self_in",
+          "statement": "I expect others to adapt to my leadership style for clarity and speed."
+        },
+        {
+          "id": "others_shift_style",
+          "index": 6,
+          "orientation": "others_in",
+          "statement": "I consciously shift my approach based on the needs and working styles of others."
+        }
+      ]
+    },
+    {
+      "id": "relationship_orientation",
+      "title": "Section 4 · Relationship Orientation",
+      "prompts": [
+        {
+          "id": "self_decision_maker",
+          "index": 7,
+          "orientation": "self_in",
+          "statement": "I see my role as a decision-maker who guides and directs."
+        },
+        {
+          "id": "others_collaborator",
+          "index": 8,
+          "orientation": "others_in",
+          "statement": "I see my role as a collaborator who facilitates and learns with others."
+        }
+      ]
+    },
+    {
+      "id": "development_focus",
+      "title": "Section 5 · Development Focus",
+      "prompts": [
+        {
+          "id": "self_growth",
+          "index": 9,
+          "orientation": "self_in",
+          "statement": "My growth as a leader is mostly about knowing and expressing my true self."
+        },
+        {
+          "id": "others_growth",
+          "index": 10,
+          "orientation": "others_in",
+          "statement": "My growth as a leader is about expanding my ability to serve diverse needs."
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "paired_preference",
+    "steps": [
+      "Within each section, compare the ratings for the Self-in and Others-in prompt.",
+      "Whichever prompt has the higher rating earns one point for that orientation. Ties can be treated as \"balanced\" for that pair.",
+      "Sum all Self-in wins (questions 1, 3, 5, 7, 9) and all Others-in wins (questions 2, 4, 6, 8, 10)."
+    ],
+    "insightBands": [
+      {
+        "id": "mostly_self_in",
+        "label": "Mostly Self-in",
+        "range": {
+          "minSelfWins": 4,
+          "maxSelfWins": 5
+        },
+        "summary": "You lead from a strong sense of self—your beliefs, identity, and vision are your compass. You may benefit from developing greater empathy and adaptive capacity."
+      },
+      {
+        "id": "balanced",
+        "label": "Balanced",
+        "range": {
+          "minSelfWins": 2,
+          "maxSelfWins": 3,
+          "minOthersWins": 2,
+          "maxOthersWins": 3
+        },
+        "summary": "You are integrating both styles—aware of self, yet increasingly tuned into others. This is a dynamic, reflective zone of growth."
+      },
+      {
+        "id": "mostly_others_in",
+        "label": "Mostly Others-in",
+        "range": {
+          "minOthersWins": 4,
+          "maxOthersWins": 5
+        },
+        "summary": "You lead from service—others’ needs and values shape your choices. You may benefit from anchoring more in self when clarity or assertiveness is needed."
+      }
+    ],
+    "tieHandling": "If both orientations have the same count, default to the Balanced narrative."
+  },
+  "reflectionPrompts": [
+    "Where did your instincts pull you toward a Self-in choice? What was happening for you in that situation?",
+    "Where did you clearly prioritise others? How does that show up inside your current team?"
+  ],
+  "conceptPanel": {
+    "asset": "frameworks/self_vs_others.png",
+    "caption": "Self vs. Others in Leadership framework",
+    "highlightStrategy": "Show a marker on the continuum that corresponds to the final band."
+  },
+  "cta": {
+    "label": "Continue to Challenge 2 · Values Recognition",
+    "requiresCompletedScore": true
+  }
+}

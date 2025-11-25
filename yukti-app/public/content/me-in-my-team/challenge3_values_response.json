@@ -1,0 +1,239 @@
+{
+  "challengeId": "challenge3_values_response",
+  "title": "Challenge 3 · Values Response Framework + Case Study",
+  "summary": "Participants learn how to support and challenge each teammate based on the value family identified in Challenge 2, then practise with a scripted public-sector case.",
+  "teammateForm": {
+    "people": [
+      {
+        "id": "person_a",
+        "label": "Person A"
+      },
+      {
+        "id": "person_b",
+        "label": "Person B"
+      }
+    ],
+    "sections": [
+      {
+        "id": "values_goals",
+        "label": "Values/Goals important to this teammate",
+        "type": "textarea",
+        "placeholder": "What do they consistently seek or protect?"
+      },
+      {
+        "id": "current_response",
+        "label": "My current response",
+        "type": "textarea",
+        "placeholder": "How you typically support or challenge them today."
+      },
+      {
+        "id": "behaviours_to_practise",
+        "label": "Behaviours I want to start or continue practising",
+        "type": "checklist",
+        "dataSource": "responsePlaybook"
+      }
+    ],
+    "reflectionFields": [
+      {
+        "id": "person_a_extra",
+        "label": "Any further reflection with respect to Person A"
+      },
+      {
+        "id": "person_b_extra",
+        "label": "Any further reflection with respect to Person B"
+      }
+    ]
+  },
+  "responsePlaybook": [
+    {
+      "valueFamilyId": "sva_artha",
+      "valueFamilyLabel": "Sva-Artha · Achievement / Autonomy / Power / Ambition",
+      "brahmavihara": "Upeksha (Equanimity)",
+      "essence": "Meet their intensity without being pulled into it. Stay steady, recognise their drive, and channel it toward the collective good.",
+      "behaviors": [
+        "I do not get personally affected by others' political agenda.",
+        "I give opportunities for growth to everyone on my team in accordance with the broader goals of the team/organization.",
+        "I remain calm and resilient in all situations.",
+        "I constructively challenge team members to put the collective good ahead of their personal interests.",
+        "I understand the politics played by others and can work through the system while keeping the organization's and employees' best interests in mind."
+      ],
+      "coachNotes": [
+        "Name the boldness you see before proposing the balanced next step.",
+        "Use clarity of process (\"Let's surface it together tomorrow\") to slow the pace without diluting ambition."
+      ]
+    },
+    {
+      "valueFamilyId": "sva_raksha",
+      "valueFamilyLabel": "Sva-Raksha · Discipline / Compliance / Reliability / Stability",
+      "brahmavihara": "Karuna (Compassion)",
+      "essence": "Honour what they are protecting while opening a doorway to explore new possibilities.",
+      "behaviors": [
+        "I listen actively to my team members.",
+        "I do not dismiss my team member's concerns or judge them.",
+        "I create a safe space for myself and team members to be fully authentic.",
+        "I provide mentoring/coaching support to help team members overcome challenges.",
+        "I bolster stronger self-esteem in my team members.",
+        "I enable my team members to seek external help if they need so."
+      ],
+      "coachNotes": [
+        "Slow your pace, mirror their desire for order, then invite experimentation with low-risk pilots.",
+        "Offer assurance that routines will not vanish; you are expanding capacity, not removing safeguards."
+      ]
+    },
+    {
+      "valueFamilyId": "sva_prerana",
+      "valueFamilyLabel": "Sva-Prerana · Integrity / Accountability / Fulfillment / Competence",
+      "brahmavihara": "Maitri (Loving-kindness)",
+      "essence": "Transform urgency into invitation. When someone is driven yet facing resistance, lead with respect, empathy and co-design.",
+      "behaviors": [
+        "I motivate my team members to challenge status quo and have a voice of their own.",
+        "I encourage my team members to create the future in addition to managing the present.",
+        "I create a safe environment where team members can experiment and learn from failures.",
+        "I delegate with trust and therefore I do not micromanage.",
+        "I welcome new ideas and ways of working.",
+        "I provide them with a variety of interesting and challenging projects."
+      ],
+      "coachNotes": [
+        "Pair your fire with warmth—\"What would make this easier for you?\" opens collaboration faster than directives.",
+        "Anchor conversations in shared purpose and trust before nudging for higher standards."
+      ]
+    },
+    {
+      "valueFamilyId": "aatma_siddhi",
+      "valueFamilyLabel": "Aatma-Siddhi · Compassion / Oneness / Detachment / Greater Good",
+      "brahmavihara": "Mudita (Joy in another's goodness)",
+      "essence": "Spot the quiet, purpose-led strength and invite it to influence without overpowering it.",
+      "behaviors": [
+        "I create a culture of work done with fun and enjoyment.",
+        "I encourage team members to build capability both in areas of their interest and those that will challenge them.",
+        "I challenge them to also see the value in mundane work needed for the business.",
+        "I name the integrity, sincerity or depth I notice in them.",
+        "I invite them to represent the work when their voice can anchor a principled stand.",
+        "I celebrate their contribution without forcing visibility for its own sake."
+      ],
+      "coachNotes": [
+        "Affirm their purpose orientation explicitly—\"Your voice carries integrity\".",
+        "Frame stretch opportunities as service to the mission, not personal spotlight."
+      ]
+    }
+  ],
+  "caseStudy": {
+    "title": "Base Case · Leading Public Service Teams Through Values",
+    "scenes": [
+      {
+        "id": "conflict_management",
+        "title": "Conflict Management",
+        "valueFamilyId": "sva_artha",
+        "brahmavihara": "Upeksha",
+        "setting": "District Planning Office · Aarav (Executive Engineer) & Ms. Iqbal (Senior Town Planner)",
+        "narrative": [
+          "Aarav rushes in with a bold housing layout plan and wants to bypass committee layers to gain three months.",
+          "Ms. Iqbal receives the plan with composed attention, neither resisting nor yielding immediately.",
+          "Her equanimity slows Aarav's urgency; together they agree to surface the idea in the review table with space for discussion.",
+          "By staying steady, she allows Aarav to find his own balance instead of escalating the conflict."
+        ],
+        "reflectionQuestions": [
+          "Can you recall a moment where you didn't react—and your stillness shifted the energy in the room?",
+          "How can you embody steadiness when someone brings heat, urgency or pressure?",
+          "What does it take to not take sides in conflict while still offering direction?"
+        ]
+      },
+      {
+        "id": "mentoring_inspiration",
+        "title": "Mentoring & Inspiring Others",
+        "valueFamilyId": "sva_prerana",
+        "brahmavihara": "Maitri",
+        "setting": "Rural District Education Office · Anita (IAS officer) & Mr. Bhattacharya (mentor)",
+        "narrative": [
+          "Anita pushes for higher standards but meets resistance from principals; she feels drained by the pushback.",
+          "Her mentor brings warmth (tea, curiosity) and reminds her how she was previously welcomed.",
+          "With Maitri—loving-kindness—he shifts her urgency into invitation, prompting her to co-design with stakeholders.",
+          "Anita re-engages the principal with empathy, asking what would make the change easier."
+        ],
+        "reflectionQuestions": [
+          "Think of a time when your own drive or passion was met with resistance. How did you respond?",
+          "What would it look like to lead that moment with Maitri—loving-kindness?"
+        ]
+      },
+      {
+        "id": "feedback_conversations",
+        "title": "Giving and Receiving Feedback Constructively",
+        "valueFamilyId": "sva_raksha",
+        "brahmavihara": "Karuna",
+        "setting": "District Health Office · Ramesh (senior admin) & Ms. Anasuya (mentor)",
+        "narrative": [
+          "Ramesh protects established reporting formats and initially dismisses Neha's improvement idea.",
+          "Ms. Anasuya notices Neha's disappointment and gently invites Ramesh to hear her out.",
+          "She honours his intent to protect stability while encouraging compassion for new voices.",
+          "Ramesh later revisits Neha's draft, offering a pilot as a safe way to evolve the process."
+        ],
+        "reflectionQuestions": [
+          "When someone resists change, do you only see rigidity—or do you pause to understand what they might be trying to protect?",
+          "How might you offer feedback that honours someone's need for stability while still inviting them to explore new possibilities?"
+        ]
+      },
+      {
+        "id": "influencing_negotiation",
+        "title": "Influencing & Negotiation",
+        "valueFamilyId": "aatma_siddhi",
+        "brahmavihara": "Mudita",
+        "setting": "Ministry of Environment · Sonal (Joint Secretary) & Kiran (technical consultant)",
+        "narrative": [
+          "Sonal spots the depth in Kiran's policy section and wants him to present it at the forum.",
+          "Kiran prefers staying in the background; he is guided by Aatma-Siddhi—purpose over visibility.",
+          "Sonal affirms his integrity and frames the presentation as service to the work, not personal spotlight.",
+          "Through Mudita she convinces him to step up without overpowering his humility."
+        ],
+        "reflectionQuestions": [
+          "Do you recognise people on your team who bring quiet, purpose-driven strength?",
+          "Can you find joy in encouraging them—not for credit, but because they matter?",
+          "How can you influence without overpowering when working with sincere, value-driven colleagues?"
+        ]
+      }
+    ],
+    "practiceQuestions": [
+      {
+        "sceneId": "conflict_management",
+        "prompt": "How would you apply Upeksha with someone like Aarav when they want to bypass process for speed?"
+      },
+      {
+        "sceneId": "mentoring_inspiration",
+        "prompt": "Write how you would reopen a tense conversation using Maitri so that urgency turns into invitation."
+      },
+      {
+        "sceneId": "feedback_conversations",
+        "prompt": "Describe a Karuna-based response that honours a teammate's need for stability while nudging experimentation."
+      },
+      {
+        "sceneId": "influencing_negotiation",
+        "prompt": "Draft the words you would use to invite a purpose-driven teammate to represent the work using Mudita."
+      }
+    ],
+    "canonicalGuidance": [
+      {
+        "sceneId": "conflict_management",
+        "coachSummary": "Stay steady, acknowledge the courage in bold moves, and suggest a transparent forum that keeps velocity without burning bridges."
+      },
+      {
+        "sceneId": "mentoring_inspiration",
+        "coachSummary": "Lead with warmth and respect, ask what would make the change easier, and co-create rather than impose."
+      },
+      {
+        "sceneId": "feedback_conversations",
+        "coachSummary": "Name the value of order they guard, invite them to pilot a new idea, and reassure them that their expertise anchors the change."
+      },
+      {
+        "sceneId": "influencing_negotiation",
+        "coachSummary": "Affirm their sincerity, frame visibility as service, and celebrate their contribution so they feel seen, not used."
+      }
+    ]
+  },
+  "conceptPanel": {
+    "asset": "frameworks/values_response.png",
+    "caption": "Values Response Framework · Brahmavihara guidance for each value family"
+  },
+  "cta": {
+    "label": "Create Action Plan",
+    "requiresCompletedScore": false
+  }
+}
