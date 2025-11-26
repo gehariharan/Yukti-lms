@@ -1,190 +1,196 @@
-# Yukti Learning Platform – Prototype Spec (v2.0)
+# Yukti Learning Platform – MVP Spec (Multi-Tenant)
 
-This document supersedes the archived MVP specs. It describes the short‑term prototype we want to build right now: a leadership learning experience that uses globally understandable terminology and highlights one fully scripted learning track, **“Me in My Team.”**
+This document outlines the specifications for **Project Yukti**, a multi-tenant SaaS platform for the Aaroha coaching ecosystem. It details the architecture, data models, and interaction flows required to deliver a personalized, AI-augmented leadership learning experience.
 
 ---
 
 ## 1. Product Vision
-
-Yukti helps participants turn leadership theory into practice. Each participant selects a **Learning Track** (e.g., “Me in My Team”) and works through a sequence of **Challenges**. Every challenge is a guided experience that mixes:
-
-- Structured inputs (questionnaires, sliders, multi-select, free text)
-- Interpretations of the participant’s responses mapped to proven frameworks
-- Concept visuals/videos displayed alongside the dialogue
-- An AI coach who personalizes the conversation with the participant’s role, industry, and recent answers
-- Action items that unlock the next challenge
-
-The prototype should demonstrate this full loop for one track while making space in the UI to preview other tracks.
+Yukti is a B2B SaaS platform that helps organizations turn leadership theory into practice. Companies (Tenants) onboard their employees (Participants) to go through curated **Learning Tracks**. The platform uses AI to act as a personalized coach, guiding users through challenges, interpreting their responses against proven frameworks, and helping them build actionable leadership habits.
 
 ---
 
-## 2. Key Terminology (global naming)
+## 2. System Architecture & Multi-Tenancy
 
-| Term | Description |
-| --- | --- |
-| **Track** | A curated sequence of challenges themed around a leadership capability (e.g., “Me in My Team”) |
-| **Challenge** | A gated learning module inside a track; includes assessments, AI dialogue, and assets |
-| **Participant** | The learner; the onboarding flow captures their name, role, team size, and industry |
-| **AI Coach** | The conversational agent (Gemini/GPT) that probes, interprets scores, and narrates |
-| **Action Plan** | The set of commitments or reflections at the end of a challenge |
-| **Concept Panel** | The right-side panel that showcases framework images, slides, or short clips |
+### 2.1 Multi-Tenant Model
+- **Logical Isolation**: The system serves multiple tenants from a single instance.
+- **Tenant Identification**: Each tenant has a unique `tenantId`.
+- **Data Security**: Firestore Security Rules and Firebase Auth Custom Claims ensure users can only access data belonging to their tenant.
 
----
-
-## 3. Track Catalog (MVP view)
-
-For demo purposes the home screen shows four track cards:
-
-1. **Me in My Team** – active track with full prototype
-2. **Leading Through Change** – placeholder card (locked)
-3. **Decision Velocity** – placeholder card (locked)
-4. **Coaching Conversations** – placeholder card (locked)
-
-Only the first track is interactive right now; the rest hint at future scope.
+### 2.2 User Roles
+| Role | Scope | Permissions |
+| --- | --- | --- |
+| **Super Admin** | Global | Manage tenants, system-wide configurations, view global analytics. |
+| **Tenant Admin** | Tenant | Onboard employees, manage tenant settings (branding, licenses), view tenant analytics. |
+| **Employee** | Tenant | Access assigned learning tracks, complete challenges, view personal progress. |
 
 ---
 
-## 4. Track Detail – “Me in My Team”
+## 3. Interaction Model & Knowledge Retrieval
 
-This track contains three sequential challenges. Participants must complete each challenge to unlock the next.
+The core experience is a split-screen interface: **Left Pane (Coach/Interaction)** and **Right Pane (Knowledge/Context)**.
 
-### 4.1 Challenge 1 – Self vs. Others Reflection Tool
+### 3.1 The "Semi-Dynamic" Flow
+We will use a **Semi-Dynamic** approach for the coaching flows.
+- **Structure**: We define the "palette" of question types and the high-level sequence (e.g., "Start with 2 Likert questions, then 1 short text reflection, then a case study").
+- **AI Role**: The LLM chooses the exact wording, provides personalized feedback, and decides when to transition based on the user's depth of response, but follows the structural guardrails.
 
-**Goal:** Help the participant understand whether they lead primarily from self-focus or team-focus.
+### 3.2 Knowledge Store & Retrieval Strategy
+The system maintains a `learning_state` JSON blob that evolves with every turn.
 
-**Flow**
+**Input Processing:**
+- **Likert Scales**: Converted to numeric values and mapped to semantic tags (e.g., "Low Confidence", "High Team Focus").
+- **MCQ**: Selected options are tagged as themes/preferences.
+- **Free Text**: LLM extracts emotions, underlying needs, and specific skill gaps.
 
-1. Present a questionnaire (Likert scale). Static config contains:
-   - Question text
-   - Scale labels (e.g., 1–5)
-   - Scoring weights
-2. On submission, compute total and map to one of four segments (e.g., “Self-Driven,” “Team-Aligned,” etc.) using the interpretation table supplied by content.
-3. Display interpretation:
-   - AI Coach summarises what the score means in the participant’s industry/role.
-   - Concept panel shows the “Self vs. Others in Leadership” framework image.
-   - Highlight where the participant falls on the framework (textual indicator for now).
-4. Unlock Challenge 2 with a CTA (“Continue to Values Recognition”).
+**Retrieval & Context Injection:**
+At each step, the AI receives:
+1.  **Current `learning_state`**: The accumulated profile of the user in this session.
+2.  **Conversation History**: Recent turns.
+3.  **Content Context**: Metadata about the current challenge (e.g., "Values Recognition Framework").
 
-### 4.2 Challenge 2 – Values Recognition
-
-**Goal:** Teach the participant to observe values signals inside their team.
-
-**Flow**
-
-1. Participant enters two teammates (Person A & Person B).
-2. Each teammate is assessed against a fixed set of prompts/questions (static config).
-3. For every teammate, compute which **Values Recognition quadrant** they fall into.
-4. Outputs:
-   - AI Coach reflects back the patterns (“Person A leans toward ‘Stability & Order’ because…”).
-   - Concept panel displays the Values Recognition framework image.
-   - Action plan section encourages notes per teammate.
-5. Unlock Challenge 3.
-
-### 4.3 Challenge 3 – Values Response Framework + Case Study
-
-**Goal:** Practice responding to different value archetypes with supportive + challenging behaviors.
-
-**Flow**
-
-1. Participant reuses Person A & B (or edits them).
-2. Guided questions collect how the participant currently supports/challenges each teammate.
-3. Introduce **Values Response Framework** (image). AI Coach explains the four response strategies and maps each teammate to the recommended quadrant.
-4. **Case study practice:**
-   - Content contains one base case study + canonical mapping to the four response frameworks + sample answers.
-   - AI Coach rewrites the case study intro to match the participant’s industry/role (simple prompt templating).
-   - Participant answers how they would apply each response strategy.
-   - AI Coach compares answers to the canonical guide and provides feedback.
-5. Conclude with an action plan summarizing:
-   - Key insight per teammate
-   - Next support/challenge experiment
-   - A reminder to revisit after one week (placeholder for future reminders).
+**Session Conclusion:**
+When a module is completed, the API is called with the full state to generate:
+- **Top 3 Insights**: Personalized takeaways.
+- **Action Items**: 3-5 concrete steps.
+- **Reflection Questions**: For future thought.
+This is returned as JSON to render a "Session Summary" page.
 
 ---
 
-## 5. Content + Asset Management
+## 4. UI/UX Components
 
-All challenge inputs live as static JSON/Markdown under `product/content/me-in-my-team/` for now.
+### 4.1 Left Pane (The Coach)
+The chat interface supports rich interactive widgets, not just text.
+- **Chat Bubble**: Can contain text + one of the following interactive elements:
+  - **Likert Scale**: Slider or buttons (1-5) with semantic labels (e.g., "Never" to "Always").
+  - **Radio/Checkbox**: For single or multi-choice selection.
+  - **Text Area**: For open-ended reflection.
+- **Controls**: "Continue" button (primary), optional "Skip" (secondary).
+- **Progress**: "You’re 40% through this reflective journey."
 
-| File | Purpose |
-| --- | --- |
-| `challenge1_self_vs_others.json` | Questions, scoring weights, interpretation bands |
-| `challenge2_values_recognition.json` | Prompts for Person A/B, quadrant rules |
-| `challenge3_values_response.json` | Guided questions, case study base text, canonical mapping |
-| `frameworks/` | Folder for PNG/JPG assets (Self vs. Others graphic, Values Recognition graphic, Values Response graphic, optional videos) |
-
-Content editors can drop files there without touching Vue code. The front end consumes them via static imports or fetch.
-
----
-
-## 6. AI Coach Integration
-
-- **Model:** Gemini Flash (existing client-side service) or GPT via similar wrapper.
-- **System prompt updates:**
-  - Use global terminology (“AI Coach”, “challenge”, “action plan”)
-  - Inject participant persona (role, industry, team size) + current challenge context.
-  - Provide structured data (scores, quadrant labels) so the model references them instead of inventing.
-- **Use cases per challenge:**
-  1. Reflecting score interpretations in Challenge 1.
-  2. Explaining values quadrants + personalized insights in Challenge 2.
-  3. Rewriting case study intros, comparing participant answers to canonical reasoning, and generating action plans in Challenge 3.
-- **Configuration:** API key still entered in the settings drawer for now; long term, move to backend.
-
-Fallback: if no API key is set, we can serve scripted responses similar to the current `MockGuruService` but using the new terminology and flows.
+### 4.2 Right Pane (The Context)
+A dynamic slide/card component that updates based on the conversation topic.
+- **Content**: Title, Section Headings, Bullet points.
+- **Highlight Box**: "Key Insight" or "Coach's Note".
+- **Actions**: "Pin for later", "Export to PDF", "Send to email".
+- **Media**: Can embed images (framework diagrams) or short videos.
 
 ---
 
-## 7. UI/UX Requirements
+## 5. Data Model
 
-1. **Track selection screen:**
-   - Grid of track cards with progress indicators (e.g., “3/3 challenges complete”).
-   - Only “Me in My Team” is clickable; others show “Coming soon.”
-2. **Challenge layout (desktop & tablet):**
-   - Left: scrollable interaction area (forms, chat, guidance).
-   - Right: Concept panel toggles between framework images, slide thumbnails, or video embed per step.
-   - Top breadcrumb shows track > challenge.
-3. **Questionnaire components:**
-   - Likert scales, multi-select chips, text inputs.
-   - Display running progress (e.g., “Question 5 of 12”).
-4. **AI Coach responses:**
-   - Continue using chat bubble layout but rename persona to “AI Coach.”
-   - Provide quick action buttons where relevant (e.g., “Show me the framework again”).
-5. **Gating + success state:**
-   - CTA to proceed only after mandatory inputs are complete.
-   - Animated unlock message before moving to the next challenge.
+### 5.1 Core Collections
+- `tenants` (doc per company): Branding, config.
+- `users` (doc per user): Profile, role, tenantId.
+- `tracks` (global content): Static definitions of modules and challenges.
+
+### 5.2 Session & Progress Tracking
+To support the semi-dynamic flow and analytics, we use a granular session model.
+
+```typescript
+// Learner's journey through a specific module
+interface Session {
+  id: string;
+  user_id: string;
+  tenant_id: string;
+  track_id: string;
+  module_id: string;
+  started_at: Timestamp;
+  status: "active" | "completed";
+  // The evolving brain of the session
+  learning_state: {
+    scores: Record<string, number>; // e.g., { "self_focus": 4 }
+    themes: string[]; // e.g., ["conflict_avoidant", "empathetic"]
+    emotions: string[];
+    insights: string[];
+  };
+}
+
+// A single interaction loop
+interface Turn {
+  id: string;
+  session_id: string;
+  question_id: string; // references the static config step
+  question_payload: {
+    type: "likert" | "text" | "mcq";
+    text: string;
+    options?: string[];
+  };
+  user_answer: {
+    value: number | string | string[]; // The raw input
+    metadata?: any; // Time taken, etc.
+  };
+  model_output: {
+    interpretation: string; // "That's a high score..."
+    next_step_trigger: boolean;
+    right_pane_update?: {
+      title: string;
+      content: string;
+      image_url?: string;
+    };
+  };
+  created_at: Timestamp;
+}
+```
 
 ---
 
-## 8. Implementation Outline
-
-1. **Content ingestion**
-   - Create static content files + TypeScript types.
-   - Build helper functions to compute scores/quadrants from responses.
-2. **Routing + state**
-   - `/tracks` (selection), `/tracks/me-in-my-team/:challengeId`.
-   - Track participant progress in Pinia store (persist in localStorage for now).
-3. **Challenge components**
-   - `ChallengeLayout` (left/right columns, concept panel slot).
-   - `SelfVsOthersAssessment`, `ValuesRecognitionAssessment`, `ValuesResponsePractice`.
-4. **AI Coach service**
-   - Extend existing Gemini service to accept context payload.
-   - Add scripted fallback responses matching new flows.
-5. **Concept assets**
-   - Load framework images from `public/frameworks/`.
-   - Provide component for caption + download link if needed.
-6. **Action plan module**
-   - Shared component to summarize insights and store them in Pinia.
-   - Future: sync to backend, send reminders.
+## 6. Safety & Privacy
+Since users may share sensitive workplace dynamics:
+- **System Prompts**: Explicitly set boundaries ("I am a leadership coach, not a therapist. If you are in crisis...").
+- **Data Minimization**: Prefer storing summarized tags/themes in `learning_state` over raw text where possible.
+- **User Control**: "Delete my data" option for specific sessions.
 
 ---
 
-## 9. Open Items for Content Team
+## 7. Detailed Track Spec: "Me in My Team"
+*(Retained from Prototype Spec v2.0)*
 
-1. Populate the three JSON files with final questions, scoring logic, and interpretation copy.
-2. Drop framework images/videos into `product/content/me-in-my-team/frameworks/` using descriptive filenames.
-3. Provide the base case study text + canonical solution mapping; include any confidential data handling notes.
+This is the flagship track for the MVP.
 
-Once those assets are in place, engineering can wire the prototype end-to-end.
+### 7.1 Challenge 1 – Self vs. Others Reflection Tool
+- **Goal:** Help participant understand their leadership focus (Self vs. Team).
+- **Flow:**
+  1. **Input**: Likert scale questionnaire.
+  2. **Process**: Calculate score, map to "Self-Driven" or "Team-Aligned".
+  3. **Output**: AI Coach explains result; Concept Panel shows framework.
+
+### 7.2 Challenge 2 – Values Recognition
+- **Goal:** Teach observation of values signals in teammates.
+- **Flow:**
+  1. **Input**: Assess two teammates (Person A & B) against prompts.
+  2. **Process**: Map teammates to **Values Recognition Quadrants**.
+  3. **Output**: AI Coach reflects patterns; Concept Panel shows quadrant map.
+
+### 7.3 Challenge 3 – Values Response Framework
+- **Goal:** Practice responding to different value archetypes.
+- **Flow:**
+  1. **Input**: User drafts responses for Person A & B.
+  2. **AI Interaction**: AI acts as the teammate, reacting to the user's response based on their archetype.
+  3. **Feedback**: AI compares user's approach to canonical best practices.
 
 ---
 
-*Last updated:* 2025-11-23
+## 8. Build Roadmap (Phased)
+
+### Phase 1 – Prototype (1–2 Weeks)
+- **Goal**: Basic web app with split screen and one hard-coded linear flow.
+- **Tech**: Vue 3 + Firebase (Auth/Firestore).
+- **AI**: One API call per step. Input: `latest_answer` + `summary`. Output: `insight` + `right_pane_spec`.
+- **Deliverable**: "Me in My Team" module working end-to-end with session summary.
+
+### Phase 2 – Structured Outputs & Rich Inputs
+- **Goal**: Robust data handling.
+- **Tech**: Implement JSON Schema for AI responses (Structured Outputs).
+- **UI**: Build generic `Likert`, `MCQ`, `TextInput` widgets driven by the schema.
+- **State**: Implement the `learning_state` update logic.
+
+### Phase 3 – Rich Content Routing
+- **Goal**: Dynamic knowledge retrieval.
+- **Tech**: Add tool/function `get_resources_by_tags(tags[])`.
+- **Flow**: LLM calls tool -> System fetches framework assets -> Right pane updates dynamically.
+
+### Phase 4 – Personalization & Scale
+- **Goal**: Multi-module and user context.
+- **Tech**: User profiles + Goal setting.
+- **Flow**: System recommends modules based on `learning_state` history.
